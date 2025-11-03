@@ -1,0 +1,23 @@
+[project]
+name = "ptk-admin-panel"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Edward Jazzhands", email = "ed.jazzhands@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "flask>=3.1.2",
+    "flask-login>=0.6.3",
+    "flask-sqlalchemy>=3.1.1",
+    "psutil>=7.1.2",
+    "rich>=14.2.0",
+]
+
+[project.scripts]
+ptk-admin-panel = "ptk_admin_panel:main"
+
+[build-system]
+requires = ["uv_build>=0.9.5,<0.10.0"]
+build-backend = "uv_build"

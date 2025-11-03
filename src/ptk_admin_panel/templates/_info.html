@@ -1,0 +1,53 @@
+<!--
+class ProcessInfo(TypedDict):
+    name: str
+    cmdline: str
+    user: str           # which user owns it
+    cwd: str            # working directory
+    create_time: float  # when process started
+    cpu_percent: float  # CPU usage
+    memory_mb: str      # RAM in MB
+    num_threads: int
+    connections: list[Any]   # ALL connections for this process
+    exe: str            # full executable path
+    status: str         # running, sleeping, etc
+ -->
+
+
+{% if context %}
+<div class="info-content">
+    <div class="info-header">
+        <h3>{{ context.name }}</h3>
+    </div>
+    <div class="info-row">    
+        <div class="info-label">cmdline</div>
+        <div class="info-value">{{ context.cmdline }}</div>
+    </div>
+    <div class="info-row">
+        <div class="info-label">Working dir</div>
+        <div class="info-value">{{ context.cwd }}</div>
+    </div>
+    <div class="info-row">
+        <div class="info-label">Creation time</div>
+        <div class="info-value">{{ context.create_time }}</div>
+    </div>
+    <div class="info-row">
+        <div class="info-label">Owner</div>
+        <div class="info-value">{{ context.user }}</div>
+    </div>
+    <div class="info-row">
+        <div class="info-label">Status</div>
+        <div class="info-value">
+            <span class="badge status-${user.status.toLowerCase()}">{{ context.status }}</span>
+        </div>
+    </div>
+    <div class="info-row">
+        <div class="info-label">Executable Path</div>
+        <div class="info-value">{{ context.exe }}</div>
+    </div>
+</div>
+{% else %}
+<div class="info-placeholder">
+    No info available
+</div>
+{% endif %}

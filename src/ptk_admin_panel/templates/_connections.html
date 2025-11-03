@@ -1,0 +1,52 @@
+<div class="table-responsive">
+  <table class="table table-hover table-dark mb-0">
+    <thead>
+      <tr>
+        <th class="py-3 border-secondary">Name</th>
+        <th class="py-3 border-secondary">Type</th>
+        <th class="py-3 border-secondary">FD</th>
+        <th class="py-3 border-secondary">Local Address</th>
+        <th class="py-3 border-secondary">Remote Address</th>
+        <th class="py-3 border-secondary">Status</th>
+        <th class="py-3 border-secondary">PID</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      {% for c in context %}
+      <tr
+        hx-get="/api/conn-info?q={{ c.pid }}" 
+        hx-target="#info-box" 
+        hx-swap="innerHTML"
+        hx-trigger="click"
+        class="row-button"
+      >
+        <td>{{ c.name }}</td>
+        <td>{{ "TCP" if c.type == 1 else "UDP" }}</td>
+        <td>{{ c.fd }}</td>
+        <td>{{ c.laddr.ip }}:{{ c.laddr.port }}</td>
+        <td>{{ c.raddr.ip }}:{{ c.raddr.port }}</td>
+        <td>
+          <span
+            class="badge {% if c.status == 'ESTABLISHED' %}bg-success{% else %}bg-secondary{% endif %}"
+          >
+            {{ c.status }}
+          </span>
+        </td>
+        <td>{{ c.pid }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="4" class="text-center text-muted">No active connections</td>
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .row-button {
+    cursor: pointer;
+  }
+</style>

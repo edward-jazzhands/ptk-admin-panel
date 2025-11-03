@@ -1,0 +1,214 @@
+body {
+  background-color: #202225;
+}
+
+.main-container {
+  margin: 30px;
+}
+
+.outer-layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  /* border: 3px solid red; */
+}
+
+.card {
+  border-width: 3px;
+  border-color: #3b3b3b;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #2d2d2d !important;
+  color: #e0e0e0;
+}
+
+.inner-card {
+  border-color: #3b3b3b;
+  border-width: 3px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #2d2d2d !important;
+  color: #e0e0e0;
+}
+
+.table-card {
+  flex: 1;
+  min-width: 300px;
+}
+
+.table-dark {
+  --bs-table-bg: #2d2d2d;
+  --bs-table-striped-bg: #333333;
+  --bs-table-hover-bg: #353535;
+}
+
+.table thead th {
+  background-color: #1f1f1f;
+  border-bottom: 2px solid #404040;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.table tbody tr {
+  transition: background-color 0.2s ease;
+  border-color: #404040;
+}
+
+/* 
+.table tbody tr td {
+width: 30px;
+} */
+
+.info-section {
+  flex: 0 0 400px;
+  /* min-height: 300px; */
+}
+
+#info-box {
+  min-height: 300px;
+  padding: 5px;
+  /* border: 3px solid red; */
+}
+
+/* Make it stack vertically on smaller screens */
+@media (max-width: 992px) {
+  .outer-layout {
+    flex-direction: column;
+  }
+
+  .info-section {
+    flex: 1;
+    width: 100%;
+  }
+}
+
+
+.info-placeholder {
+    color: #999;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.info-header {
+    border-bottom: 2px solid #2196F3;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.info-row {
+    /* border-bottom: 2px solid #222222; */
+    padding-bottom: 10px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #b9b9b9;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    padding: 3px;
+    background-color: #333333;
+}
+
+.info-content {
+    animation: fadeIn 0.3s;
+    color: #f2f2f2;
+    /* border: 2px solid red; */
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+/* ---------------- */
+/* ---SSH Window--- */
+/* ---------------- */
+
+.ssh-status-card {
+  margin: 10px;
+}
+
+.status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  /* border-bottom: 2px solid #494949; */
+}
+
+.status-title {
+  /* margin: 5px; */
+  font-size: 1.2em;
+}
+
+.status-port {
+  font-size: 1.0em;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-active {
+  background: #0ea13a;
+  color: #ffffff;
+}
+
+.status-inactive {
+  background: #550d13;
+  color: #ffffff;
+}
+
+.status-details {
+  margin-top: 15px;
+}
+
+.metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  /* border: 3px solid red; */
+}
+
+.metric-label {
+  color: #b1b1b1;
+  font-weight: 500;
+}
+
+.metric-value {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #007bff;
+}
+
+.status-warning {
+  padding: 12px;
+  border-left: 4px solid #ffc107;
+  color: #856404;
+  margin-top: 10px;
+}
+
+.status-error {
+  padding: 12px;
+  border-left: 4px solid #dc3545;
+  color: #721c24;
+  margin-top: 10px;
+}
+
+/* Auto-refresh indicator */
+.htmx-request .status-header h3::after {
+  content: " ⟳";
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

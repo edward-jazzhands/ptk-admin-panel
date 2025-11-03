@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block body %}
+
+<div class="main-container">
+  <div class="row justify-content-center">
+    <div class="flexbox outer-layout">
+      <div class="info-section card">
+        <div class="card-body p-0">
+          <div hx-get="/api/ssh-status" 
+          hx-trigger="load, every 5s"
+          hx-swap="innerHTML">
+            <div class="ssh-status-card">
+                <div class="status-header">
+                    <h3>SSH Server</h3>
+                    <span class="status-badge">Loading...</span>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-section card p-0">
+        <div class="card-body p-0">
+          <h2 class="text-center p-2">Details</h2>
+          <div class="d-flex justify-content-center align-items-center" id="info-box">
+            Click a row to see details
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
