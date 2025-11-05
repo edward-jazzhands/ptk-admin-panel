@@ -1,0 +1,56 @@
+<div class="status-header">
+  <h4 class="status-title">SSH Server Details</h4>
+  <span class="status-badge status-{{ 'active' if context.is_active else 'inactive' }}">
+    {{ 'Active' if context.is_active else 'Inactive' }}
+  </span>
+</div>
+
+{% if context.is_active %}
+<div class="status-body">
+  <div class="metric">
+    <span class="metric-label">Process ID:</span>
+    <span class="metric-value">{{ context.pid }}</span>
+  </div>
+  <div class="metric">
+    <span class="metric-label">Port:</span>
+    <span class="metric-value">{{ context.port }}</span>
+  </div>
+  <h5 class="status-title">Active Connections:</h5>
+  <div class="table-card card">
+    <div class="table-responsive">
+      <table class="table table-hover table-dark mb-0">
+        <thead>
+          <tr>
+            <th class="py-3 border-secondary">Local Address</th>
+            <th class="py-3 border-secondary">Remote Address</th>
+            <th class="py-3 border-secondary">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for k, v in context.active_connections.items() %}
+          <tr>
+            <td>{{ v.laddr.ip }}:{{ v.laddr.port }}</td>
+            <td>{{ v.raddr.ip }}:{{ v.raddr.port }}</td>
+            <td>
+              <span
+                class="badge {% if v.status == 'ESTABLISHED' %}bg-success{% else %}bg-secondary{% endif %}"
+              >
+                {{ v.status }}
+              </span>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="4" class="text-center text-muted">No active connections</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="status-warning">SSH server is not running</div>
+{% endif %} {% if context.error_message %}
+<div class="status-error">{{ context.error_message }}</div>
+{% endif %}

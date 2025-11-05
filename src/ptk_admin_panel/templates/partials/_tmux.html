@@ -1,0 +1,65 @@
+<!--
+
+class TmuxStatus(NamedTuple):
+    """Overall tmux status information."""
+    is_installed: bool
+    is_running: bool
+    server_pid: int | None
+    sessions: list[TmuxDetector.TmuxSession]
+    total_clients: int  
+-->
+
+<div class="status-header">
+  <h4 class="status-title">Tmux Server Details</h4>
+  <span class="status-badge status-{{ 'active' if context.is_running else 'inactive' }}">
+    {{ 'Active' if context.is_running else 'Inactive' }}
+  </span>
+</div>
+
+{% if context.is_running %}
+<div class="status-body">
+  <div class="metric">
+    <span class="metric-label">Process ID:</span>
+    <span class="metric-value">{{ context.server_pid }}</span>
+  </div>
+  <div class="metric">
+    <span class="metric-label">Number of Clients:</span>
+    <span class="metric-value">{{ context.total_clients }}</span>
+  </div>
+  <h5 class="status-title">Active Sessions:</h5>
+  <div class="table-card card">
+    <div class="table-responsive">
+      <table class="table table-hover table-dark mb-0">
+        <thead>
+          <tr>
+            <th class="py-3 border-secondary">Name</th>
+            <th class="py-3 border-secondary">Windows</th>
+            <th class="py-3 border-secondary">Created</th>
+            <th class="py-3 border-secondary">Attached</th>
+            <th class="py-3 border-secondary"># of Clients</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for session in context.sessions %}
+          <tr>
+            <td>{{ session.name }}</td>
+            <td>{{ session.windows }}</td>
+            <td>{{ session.created }}</td>
+            <td>{{ session.attached }}</td>
+            <td>{{ session.clients|length }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="4" class="text-center text-muted">No active sessions</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="status-warning">Tmux server is not running</div>
+{% endif %} {% if context.error_message %}
+<div class="status-error">{{ context.error_message }}</div>
+{% endif %}

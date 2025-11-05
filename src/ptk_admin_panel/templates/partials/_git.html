@@ -1,0 +1,69 @@
+<h3 class="status-header">
+  Found {{ context|length }} repositor{% if context|length == 1 %}y{% else %}ies{% endif %}
+</h3>
+
+<div class="status-body">
+  {% if context %}
+
+  <div class="repo-grid">
+    {% for repo in context %}
+    <div class="card repo-card {% if repo.error %}error{% elif repo.is_clean %}clean{% endif %}">
+      <div class="zombie-body">
+        <div class="repo-path">
+          {{ repo.repo_path }} {% if repo.is_clean and not repo.error %}
+          <span class="git-clean-badge">✓ Clean</span>
+          {% endif %}
+        </div>
+        <div class="repo-branch"><strong>Branch:</strong> {{ repo.branch }}</div>
+      </div>
+      {% if repo.error %}
+      <div class="git-error-message"><strong>Error:</strong> {{ repo.error }}</div>
+      {% else %}
+      <div class="git-status-grid">
+        {% if repo.ahead > 0 or repo.behind > 0 %}
+        <div class="git-status-item">
+          <div class="git-status-label">Ahead</div>
+          <div class="git-status-value {% if repo.ahead > 0 %}warning{% else %}good{% endif %}">
+            {{ repo.ahead }}
+          </div>
+        </div>
+        <div class="git-status-item">
+          <div class="git-status-label">Behind</div>
+          <div class="git-status-value {% if repo.behind > 0 %}warning{% else %}good{% endif %}">
+            {{ repo.behind }}
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="git-status-item">
+          <div class="git-status-label">Staged</div>
+          <div class="git-status-value {% if repo.staged > 0 %}warning{% else %}good{% endif %}">
+            {{ repo.staged }}
+          </div>
+        </div>
+
+        <div class="git-status-item">
+          <div class="git-status-label">Modified</div>
+          <div class="git-status-value {% if repo.modified > 0 %}danger{% else %}good{% endif %}">
+            {{ repo.modified }}
+          </div>
+        </div>
+
+        <div class="git-status-item">
+          <div class="git-status-label">Untracked</div>
+          <div class="git-status-value {% if repo.untracked > 0 %}warning{% else %}good{% endif %}">
+            {{ repo.untracked }}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% else %}
+<div class="no-repos">
+  <h2>No Git Repositories Found</h2>
+  <p>No git repositories were found in /home</p>
+</div>
+{% endif %}

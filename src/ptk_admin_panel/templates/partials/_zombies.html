@@ -1,0 +1,41 @@
+<h3>Zombie Processes</h3>
+
+<!-- 
+class ZombieInfo:
+    name: str
+    user: str           # which user owns it
+    create_time: str  # when process started
+    cpu_percent: float  # CPU usage
+    memory_mb: str      # RAM in MB
+-->
+
+{% for process in context %}
+<div>
+  <div class="card zombie-card">
+    <div class="zombie-body">
+      <div class="metric">
+        <span class="metric-label">Name:</span>
+        <span class="metric-value">{{ process.name }}</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Owner:</span>
+        <span class="metric-value">{{ process.user }}</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Creation time:</span>
+        <span class="metric-value">{{ process.create_time }}</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">CPU Usage:</span>
+        <span class="metric-value">{{ process.cpu_percent }}%</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Memory Usage:</span>
+        <span class="metric-value">{{ process.memory_mb }}mb</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="status-card-ok">No zombies detcted 👍</div>
+{% endfor %}

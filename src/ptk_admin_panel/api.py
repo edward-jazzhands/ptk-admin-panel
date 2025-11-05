@@ -1,5 +1,5 @@
 # standard lib
-from typing import NamedTuple, Any
+from typing import Any
 from dataclasses import dataclass
 
 # third party
@@ -13,23 +13,11 @@ from . import util_funcs
 api = Blueprint("api", __name__)
 
 
+@api.route("/api/placeholder")
+def placeholder():
+    
+    return render_template("partials/_placeholder.html")
 
-
-class BasicInfo(NamedTuple):
-    disk_usage: Any
-    pids: list[int]
-    users: list[Any]
-    
-    
-@api.route("/api/basic_info")
-def basic_info():
-    
-    info = BasicInfo(
-        disk_usage = psutil.disk_usage("/"),
-        pids = psutil.pids(),
-        users = psutil.users(),
-    )
-    return render_template("_basic.html", context=info)
 
 @dataclass
 class MySconn:
@@ -67,7 +55,7 @@ def connections():
             status = c.status,
             pid = c.pid,
         ))
-    return render_template("_connections.html", context=my_sconns)
+    return render_template("partials/_connections.html", context=my_sconns)
 
 @api.route("/api/conn-info")
 def conn_info():
@@ -77,21 +65,61 @@ def conn_info():
     if query:
         try:
             pid = int(query)
-        except Exception:
-            pass
+        except Exception as e:
+            return f"Failed to get process by PID: {e}"
+    else:
+        return "Invalid query provided. Please provide valid PID"
+    
+    process = psutil.Process(pid)
     
     try:
-        info = util_funcs.get_enhanced_proc_info(pid)
+        info = util_funcs.get_enhanced_proc_info(process)
     except Exception as e:
         info = None
         print(f"Error: {e}")
 
-    return render_template("_info.html", context=info)
+    return render_template("partials/_info.html", context=info)
 
 
 @api.route("/api/ssh-status")
 def ssh_status() -> str:
     
-    status = util_funcs.get_ssh_status()
+    status = util_funcs.SSHDetector.get_ssh_status()
+    return render_template("partials/_ssh_status.html", context=status)
+
+
+@api.route("/api/modified-files")
+def modified_files() -> str:
     
-    return render_template("_ssh_status.html", context=status)
+    modified = util_funcs.get_recent_files(
+        # exclude_hidden=True,
+        limit=10,
+    )
+    return render_template("partials/_modified_files.html",context=modified)
+
+@api.route("/api/zombies")
+def zombies() -> str:
+    
+    zombies = util_funcs.ZombieDetector.get_zombie_processes()
+    return render_template("partials/_zombies.html", context=zombies)
+
+
+@api.route("/api/uptime")
+def uptime() -> str:
+    
+    uptime = util_funcs.get_uptime_info()
+    return render_template("partials/_uptime.html", context=uptime)
+
+
+@api.route("/api/tmux")
+def tmux() -> str:
+    
+    tmux_status = util_funcs.TmuxDetector.get_status()
+    return render_template("partials/_tmux.html", context=tmux_status)
+
+
+@api.route("/api/git")
+def git() -> str:
+    
+    git_repos = util_funcs.GitDetector.scan_git_repos()
+    return render_template("partials/_git.html", context=git_repos)

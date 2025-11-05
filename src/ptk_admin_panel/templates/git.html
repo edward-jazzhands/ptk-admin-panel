@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block title %}Git Repositories{% endblock %} {% block body %}
+
+<div class="main-container">
+  <div class="row justify-content-center">
+
+      <div class="text-center mb-4">
+        <h2 class="fw-bold text-light">Git Repositories</h2>
+      </div>
+
+      <div class="flexbox outer-layout">
+        <div class="outer-card card">
+          <div
+          class="card-body p-0" 
+          hx-get="/api/git"
+          hx-trigger="load, every 5s"
+          hx-swap="innerHTML"
+          >
+            <div class="spinner-border spinner-border-sm me-2 text-light" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            Loading Git Repos...
+          </div>
+        </div>
+
+        <div class="git-info-section card p-0">
+          <div class="card-body p-0">
+            <h2 class="text-center p-2">Details</h2>
+            <div class="d-flex justify-content-center align-items-center" id="info-box">
+              Click a repo to see details
+            </div>
+          </div>
+        </div>
+
+      </div>
+  </div>
+</div>
+
+{% endblock %}

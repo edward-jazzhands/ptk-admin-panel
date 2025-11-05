@@ -1,0 +1,23 @@
+<h3 class="status-header">Container Stats</h3>
+
+<!-- 
+class UptimeInfo(NamedTuple):
+    """Type definition for uptime information."""
+    uptime_seconds: float
+    uptime_formatted: str
+    boot_time: str
+    boot_timestamp: float
+-->
+
+<div>
+  <div>
+    <div class="metric">
+      <span class="metric-label">Uptime:</span>
+      <span class="metric-value">{{ context.uptime_formatted }}</span>
+    </div>
+    <div class="metric">
+      <span class="metric-label">Started:</span>
+      <span class="metric-value">{{ context.boot_time }}</span>
+    </div>
+  </div>
+</div>

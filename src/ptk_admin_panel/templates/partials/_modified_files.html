@@ -1,0 +1,25 @@
+<h3>Recently modified files</h3>
+<div class="table-responsive">
+  <table class="table table-hover table-dark mb-0">
+    <thead>
+      <tr>
+        <th class="py-3 border-secondary">Path</th>
+        <th class="py-3 border-secondary">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      {% for file in context %}
+      <tr>
+        <td>{{ file.path }}</td>
+        <td>{{ file.modified_str }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="4" class="text-center text-muted">Couldn't find recently modified files</td>
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+</div>

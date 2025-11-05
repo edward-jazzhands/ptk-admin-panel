@@ -2,31 +2,90 @@
 
 <div class="main-container">
   <div class="row justify-content-center">
+
     <div class="flexbox outer-layout">
-      <div class="info-section card">
+      <div class="outer-card card">
         <div class="card-body p-0">
-          <div hx-get="/api/ssh-status" 
-          hx-trigger="load, every 5s"
-          hx-swap="innerHTML">
-            <div class="ssh-status-card">
-                <div class="status-header">
-                    <h3>SSH Server</h3>
-                    <span class="status-badge">Loading...</span>
-                </div>
+          <div 
+            hx-get="/api/ssh-status" 
+            hx-trigger="load, every 5s"
+            hx-swap="innerHTML"
+          >
+            <div class="status-header">
+                <h3>SSH Server</h3>
+                <span class="status-badge">Loading...</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="info-section card p-0">
+      <div class="outer-card card">
         <div class="card-body p-0">
-          <h2 class="text-center p-2">Details</h2>
-          <div class="d-flex justify-content-center align-items-center" id="info-box">
-            Click a row to see details
+          <div 
+            hx-get="/api/tmux" 
+            hx-trigger="load, every 10s"
+            hx-swap="innerHTML"
+          >
+            <div class="status-header">
+                <h3>Tmux Status</h3>
+                <span class="status-badge">Detecting...</span>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
+    <div class="flexbox outer-layout">
+      <div class="outer-card card">
+        <div class="card-body p-0">
+          <div 
+            hx-get="/api/uptime" 
+            hx-trigger="load, every 5s"
+            hx-swap="innerHTML"
+          >
+            <div class="status-header">
+                <h3>Container Stats</h3>
+                <span class="status-badge">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outer-card card">
+        <div class="card-body p-0">
+          <div 
+            hx-get="/api/zombies" 
+            hx-trigger="load, every 10s"
+            hx-swap="innerHTML"
+          >
+            <div class="status-header">
+                <h3>Zombie Processes</h3>
+                <span class="status-badge">Detecting...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="flexbox outer-layout">
+
+      <div class="outer-card card">
+        <div class="card-body p-0">
+          <div 
+            hx-get="/api/modified-files"  
+            hx-trigger="load, every 5s"
+            hx-swap="innerHTML"
+          >
+            <div class="status-header">
+                <h3>Recently modified files</h3>
+                <span class="status-badge">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </div>
 

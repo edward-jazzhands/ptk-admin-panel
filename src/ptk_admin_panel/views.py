@@ -21,3 +21,9 @@ def home():
 def network():
     return render_template("network.html")
 
+
+
+@views.route("/git")
+def git():
+    return render_template("git.html")
+
