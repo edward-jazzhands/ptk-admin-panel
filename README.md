@@ -4,7 +4,6 @@
 [ ] Add git details view
 [ ] Add login
 [ ] Add gunicorn
-[ ] Add supervisord or s6-overlay to container
-[ ] 
-[ ] 
-[ ] 
+[ ] Add s6-overlay to container
+[ ] Add environment variable viewer
+[ ] Add process viewer
