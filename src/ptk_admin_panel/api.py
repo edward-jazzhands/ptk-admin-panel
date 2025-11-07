@@ -1,5 +1,6 @@
 # standard lib
 from typing import Any
+import time
 from dataclasses import dataclass
 
 # third party
@@ -120,6 +121,8 @@ def tmux() -> str:
 
 @api.route("/api/git")
 def git() -> str:
-    
+
+    starttime = time.time()    
     git_repos = util_funcs.GitDetector.scan_git_repos()
-    return render_template("partials/_git.html", context=git_repos)
+    elapsed = f"{time.time() - starttime:.2f}"
+    return render_template("partials/_git.html", context=git_repos, elapsed=elapsed)

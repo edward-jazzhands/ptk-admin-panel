@@ -1,6 +1,10 @@
-<h3 class="status-header">
-  Found {{ context|length }} repositor{% if context|length == 1 %}y{% else %}ies{% endif %}
-</h3>
+<div class="status-header">
+  <h3>Found {{ context|length }} repositor{% if context|length == 1 %}y{% else %}ies{% endif %}</h3>
+  <div>
+  Scan time:<br>
+  {{ elapsed }} seconds
+  </div>
+</div>
 
 <div class="status-body">
   {% if context %}
