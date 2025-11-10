@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 import psutil
 
 # local:
-from . import format_timedelta
+from .common import format_timedelta
 
 
 class UptimeInfo(NamedTuple):

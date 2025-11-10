@@ -85,7 +85,7 @@ def conn_info():
 @api.route("/api/ssh-status")
 def ssh_status() -> str:
     
-    status = util_funcs.SSHDetector.get_ssh_status()
+    status = util_funcs.get_ssh_status()
     return render_template("partials/_ssh_status.html", context=status)
 
 
@@ -101,7 +101,7 @@ def modified_files() -> str:
 @api.route("/api/zombies")
 def zombies() -> str:
     
-    zombies = util_funcs.ZombieDetector.get_zombie_processes()
+    zombies = util_funcs.get_zombie_processes()
     return render_template("partials/_zombies.html", context=zombies)
 
 
@@ -115,7 +115,7 @@ def uptime() -> str:
 @api.route("/api/tmux")
 def tmux() -> str:
     
-    tmux_status = util_funcs.TmuxDetector.get_status()
+    tmux_status = util_funcs.get_status()
     return render_template("partials/_tmux.html", context=tmux_status)
 
 
@@ -123,6 +123,6 @@ def tmux() -> str:
 def git() -> str:
 
     starttime = time.time()    
-    git_repos = util_funcs.GitDetector.scan_git_repos()
+    git_repos = util_funcs.scan_git_repos()
     elapsed = f"{time.time() - starttime:.2f}"
     return render_template("partials/_git.html", context=git_repos, elapsed=elapsed)

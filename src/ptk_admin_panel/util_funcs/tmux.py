@@ -7,7 +7,7 @@ import functools
 # Third party:
 import psutil
 
-from . import format_timedelta
+from .common import format_timedelta
 
 
 

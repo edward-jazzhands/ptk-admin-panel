@@ -8,7 +8,7 @@ import psutil
 from psutil._common import sconn
 
 # Local:
-from . import get_connections_list_filtered
+from .common import get_connections_list_filtered
 
 
 
@@ -67,7 +67,6 @@ def _is_sshd_running() -> tuple[bool, int | None]:
 
 def _detect_ssh_port_unpriveleged(conns: list[sconn]) -> int | None:
     
-    print("Probing to find the SSH port...")
     ports: set[int] = set()
     for c in conns:
         if c.status == "LISTEN":
@@ -110,7 +109,6 @@ def _probe_ssh_once(host: str, port: int, timeout: float = 0.5) -> str | None:
 
 
 def _get_ssh_connections(ssh_port: int, conns: list[sconn]) -> dict[int, sconn]:
-    print("Counting SSH Connections on provided port...")
     counter = 1
     ssh_conns: dict[int, sconn] = {}
     for conn in conns:
