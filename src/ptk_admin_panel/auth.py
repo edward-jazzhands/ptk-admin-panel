@@ -1,3 +1,5 @@
+# PLACEHOLDER - This file is not used by the application
+
 from flask import Blueprint, render_template
 
 auth = Blueprint("auth", __name__)
